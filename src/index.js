@@ -1,12 +1,47 @@
-import React from 'react';
+import React,{Component} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+class WhoAmI extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            years:26
+        }
+        this.nextYear = this.nextYear.bind(this); //или nextYear = () =>{}
+    }
+
+    nextYear() {
+        this.setState(state => ({
+            years: ++state.years
+        }))
+    }
+
+    render() {
+        const {name, surname, link} = this.props;
+        const {years} = this.state;
+        return(
+            <>
+                <h1>My name is {name}, surname - {surname}, years - {years}</h1>
+                <button onClick={this.nextYear}>+1 years</button>
+                <a href={link}>My profile</a>
+            </>
+
+        )
+    }
+}
+
+const All = () => {
+    return (
+        <>
+        <WhoAmI name='Sergey' surname='Zubarev' link='vk.com'/>
+        <WhoAmI name='1' surname='3' link='vk.com'/>
+        <WhoAmI name='2' surname='4' link='vk.com'/>
+        </>
+    )
+}
+
+ReactDOM.render(<All />, document.getElementById('root'));
+
+
